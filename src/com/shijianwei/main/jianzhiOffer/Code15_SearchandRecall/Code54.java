@@ -46,6 +46,11 @@ public class Code54 {
         inOrder(root.right);
     }
 
+
+//    方法：因为为二叉搜索树，可以中序遍历，然后将后几个数据拿出来，
+//          调整中序遍历为右根左，就可以将遍历出来的数据直接返回
+//    中序遍历不需要返回值，可以将每个节点的值都保存来，然后在求出第k个数据的时候直接断掉
+
     static int res ;
     public static void inOrder1(TreeNode root){
         if(root == null || k<=0) return ;

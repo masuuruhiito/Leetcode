@@ -18,94 +18,110 @@ import java.util.*;
 public class Code146_LRU {
 
 
-    class LRUCache {
-        int cap  ;
-        Map<Integer,Node> map ;
-        DoubleLinkedList list ;
+    static class LRUCache {
+        Map<Integer, Node> map;
+        DoubleLinkedList list;
+        int cap;
 
         public LRUCache(int capacity) {
-            cap = capacity;
             map = new HashMap<>();
             list = new DoubleLinkedList();
+            cap = capacity;
         }
 
+//        putget维护list，为了在删除最久未使用的keyvalue
         public int get(int key) {
-            if(!map.containsKey(key)){
-                return -1;
+
+            if (map.containsKey(key)) {
+                Node node = map.get(key);
+                list.delete(node);
+                list.addFirst(node);
+                return node.val;
             }
-            int v = map.get(key).val;
-            put(key,v);
-            return v;
+            return -1;
         }
 
+
+        //
         public void put(int key, int value) {
-            Node node = new Node(key,value);
+            Node node = new Node(key, value);
 
-            if(map.containsKey(key)){
-//                  首先获取数据的位置，然后删除，
+            if (map.containsKey(key)) {
+
                 list.delete(map.get(key));
-                list.addHead(node);
-                map.put(key,node);
-            }else{
-                if(map.size() == cap){//shanchu duiwei
-                    int k = list.deleteLast();
-                    map.remove(k);
+                list.addFirst(node);
+                map.put(key, node);
+
+            } else {
+                if (map.size() >= cap) {//buneng zia fangf l ,shanchu zuihou yige shu
+                    int i = list.deleteLast();
+                    map.remove(i);
                 }
-                list.addHead(node);
-                map.put(key,node);
+                list.addFirst(node);
+                map.put(key, node);
             }
         }
-    }
 
 
-    class DoubleLinkedList{
-        Node head ;
-        Node tail ;
+        static class Node {
+            int key, val;
+            Node pre, next;
 
-        public DoubleLinkedList() {
-            head = new Node(0,0);
-            tail = new Node(0, 0);
-
-            head.next = tail;
-            tail.pre = head;
+            public Node(int key, int val) {
+                this.key = key;
+                this.val = val;
+            }
         }
 
+        static class DoubleLinkedList {
+            private Node head;
+            private Node tail;
 
-        public void addHead(Node node){
-            node.next = head.next;
-            node.pre = head;
+            public DoubleLinkedList() {
+                head = new Node(-1, -1);
+                tail = new Node(-1, -1);
+                head.next = tail;
+                tail.pre = head;
+            }
 
-            head.next = node;
-            head.next.pre = node ;
-        }
+            public void addFirst(Node node) {
+//                先将nodeprenext赋值，然后要先赋head.next.pre ,
+//                因为如果先给head。next赋值，这样下次再找head.next.pre 等价于nodepre
+                // 赋值操作变为了node.pre=node ,导致出现错误
 
-        public int deleteLast(){
-            if(head.next == tail) return -1 ;
-            return delete(tail.pre) ;
-        }
+                node.next = head.next;
+                node.pre = head;
+                head.next.pre = node;
+                head.next = node;
+            }
 
-        public int delete(Node node){
-            int k = node.key;
-            node.next.pre = node.pre;
-            node.pre.next = node.next;
-            return k;
-        }
-    }
+            public int delete(Node node) {
+                node.pre.next = node.next;
+                node.next.pre = node.pre;
+                return node.key;
+            }
 
-    class Node{
-        int key;
-        int val;
-        Node pre ;
-        Node next;
-
-        public Node(int key, int val) {
-            this.key = key;
-            this.val = val;
+            public int deleteLast() {
+                if (head.next != tail) {
+                    return delete(tail.pre);
+                }
+                return -1 ;
+            }
         }
     }
 
 
     public static void main(String[] args) {
+        LRUCache cache = new LRUCache(2);
+        cache.put(1, 1);
+        cache.put(2, 2);
+        System.out.println(cache.get(1));
+        cache.put(3, 3);
+        System.out.println(cache.get(2));
+        cache.put(4, 4);
+        System.out.println(cache.get(1));
+        System.out.println(cache.get(3));
+        System.out.println(cache.get(4));
 
     }
 
