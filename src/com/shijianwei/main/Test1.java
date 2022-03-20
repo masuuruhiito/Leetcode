@@ -2,6 +2,10 @@ package com.shijianwei.main;
 
 import javax.sound.midi.Soundbank;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 class Test1 {
     public static void main(String []args) throws IOException {
@@ -16,9 +20,35 @@ class Test1 {
 //        out.flush(); // 在控制台输出，不要忘记这句！
 
 
-        System.out.println(b());
+//        System.out.println(b());
+
+        int a = 1;
+
+
+        System.out.println(Arrays.asList(1, 2, 3, 4));
+        System.out.println(Arrays.asList());
+        PriorityQueue<ListNode> queue = new PriorityQueue();
+        ListNode[] lists = new ListNode[0];
+        System.out.println(lists.toString());
+        queue.addAll(Arrays.asList(lists));
 //        a();
 
+    }
+    static class ListNode {
+        int val;
+        ListNode next;
+
+        ListNode() {
+        }
+
+        ListNode(int val) {
+            this.val = val;
+        }
+
+        ListNode(int val, ListNode next) {
+            this.val = val;
+            this.next = next;
+        }
     }
 
 
