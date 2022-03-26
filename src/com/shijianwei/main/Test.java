@@ -1,9 +1,5 @@
 package com.shijianwei.main;
 
-import com.shijianwei.main.learn.DesignPattern.FactoryPattern.CourseFactory;
-
-import java.util.*;
-
 /**
  * 想实现LRU，put和get都是o1
  *   可以使用多种数据结构叠加的方式
@@ -42,6 +38,8 @@ class Test {
         }
         inOrder(root.left);
     }
+
+
 
 
 

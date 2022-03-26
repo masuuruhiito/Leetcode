@@ -52,6 +52,7 @@ class Test1 {
     }
 
 
+
     public static Integer a() {
         return null;
     }
