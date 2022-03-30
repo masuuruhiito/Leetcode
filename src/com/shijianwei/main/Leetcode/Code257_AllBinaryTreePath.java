@@ -28,7 +28,6 @@ public class Code257_AllBinaryTreePath {
             res.add(sb.toString());
         }else{
             sb.append("->");
-
             dfs(root.left, sb.toString(), res);
             dfs(root.right, sb.toString(),res);
         }

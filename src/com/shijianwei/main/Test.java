@@ -10,39 +10,21 @@ package com.shijianwei.main;
 
 class Test {
 
-    static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-        TreeNode(int x) { val = x; }
-    }
 
-    int count = 0 ;
-    int res = 0 ;
-
-
-    public int kthLargest(TreeNode root, int k) {
-        count = k;
-        inOrder(root);
-        return res ;
-    }
-
-
-    public void inOrder(TreeNode root) {
-        if (root == null) {
-            return;
+    public static boolean findNumberIn2DArray(int[][] matrix, int target) {
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
+            return false;
         }
-        inOrder(root.right);
-        if (--count > 0){
-            res = root.val;
+        int i = 0, j = matrix[0].length - 1;
+        while (i < matrix.length && j > 0 && i >= 0 && j < matrix[0].length) {
+            if (matrix[i][j] == target) {
+                return true ;
+            } else if (matrix[i][j] > target) {
+                j--;
+            }else {
+                i++;
+            }
         }
-        inOrder(root.left);
+        return false;
     }
-
-
-
-
-
-
-
 }
