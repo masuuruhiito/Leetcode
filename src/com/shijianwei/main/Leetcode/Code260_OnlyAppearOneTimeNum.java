@@ -102,7 +102,7 @@ public class Code260_OnlyAppearOneTimeNum {
 
     @Test
     public void aa(){
-        int[] nums = {-145417756,744132272};
+        int[] nums = {1,2,1,3,2,5};
         System.out.println(nums[0] + " " + nums[1]);
         int[] ints = singleNumber1(nums);
         for (int anInt : ints) {
@@ -115,4 +115,35 @@ public class Code260_OnlyAppearOneTimeNum {
 
 
 //    [-145417756,744132272]
+
+
+    public int[] singleNumber5(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return null;
+        }
+        int ans = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            ans ^= nums[i];
+        }
+        int tmp = ans;
+        int target = 1;
+        while ((tmp & target) == 0) {
+            target <<= 1;
+        }
+        int ans1 = 0;
+        int ans2 = 0;
+
+        for (int j = 0; j < nums.length; j++) {
+            if ((nums[j] & target) == 1) {
+                ans1 ^= nums[j];
+            }else {
+                ans2 ^= nums[j];
+            }
+        }
+        int res1 = (ans1 ^ ans);
+        int res2 = (ans2 ^ ans);
+        return new int[]{res1, res2};
+    }
+
+
 }

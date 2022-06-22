@@ -1,5 +1,6 @@
 package com.shijianwei.main.Leetcode;
 
+import java.lang.annotation.ElementType;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,26 +15,26 @@ public class Code257_AllBinaryTreePath {
         if (root == null) {
             return res;
         }
-        dfs(root,"",res);
+        dfs(root, "", res);
         return res;
     }
 
     public static void dfs(TreeNode root, String path, List<String> res) {
         if (root == null) {
-            return ;
+            return;
         }
         StringBuilder sb = new StringBuilder(path);
         sb.append(root.val);
         if (root.left == null && root.right == null) {//叶子节点
             res.add(sb.toString());
-        }else{
+        } else {
             sb.append("->");
             dfs(root.left, sb.toString(), res);
-            dfs(root.right, sb.toString(),res);
+            dfs(root.right, sb.toString(), res);
         }
     }
 
-    public static void bfs(TreeNode root, String path, List<String> res){
+    public static void bfs(TreeNode root, String path, List<String> res) {
 
     }
 
@@ -56,6 +57,30 @@ public class Code257_AllBinaryTreePath {
             this.val = val;
             this.left = left;
             this.right = right;
+        }
+    }
+
+
+    static List<String> res = new ArrayList<>();
+
+    public static List<String> binaryTreePaths1(TreeNode root) {
+        dfs1(root, new StringBuilder());
+        return res;
+    }
+
+
+    public static void dfs1(TreeNode root, StringBuilder tmp) {
+        if (root == null) {
+            return;
+        }
+        StringBuilder cur = new StringBuilder(tmp);
+        cur.append(root.val);
+        if (root.left == null && root.right == null) {
+            res.add(cur.toString());
+        }else {
+            cur.append("->");
+            dfs1(root.left, cur);
+            dfs1(root.right, cur);
         }
     }
 }

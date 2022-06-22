@@ -126,4 +126,28 @@ public class Code300_LongestIncreasingSubsequence {
         return res;
     }
 
+
+    public static int lengthOfLIS5(int[] nums) {
+        if (nums.length <= 1) {
+            return nums.length;
+        }
+        int[] dp = new int [nums.length];
+        int res = 0;
+        for (int i = 0; i < nums.length; i++) {
+            int l = 0 , r = res ;
+            while (l < r) {
+                int mid = l + ((r - l) >> 1);
+                if (dp[mid] > nums[i]) {
+                    r = mid;
+                }else {
+                    l = mid + 1;
+                }
+            }
+            dp[l] = nums[i];
+            if (r == res) {
+                res++;
+            }
+        }
+        return res ;
+    }
 }

@@ -49,4 +49,8 @@ public class AllPermutation {
         allPermutation("1234".toCharArray());
     }
 
+
+
+
+
 }

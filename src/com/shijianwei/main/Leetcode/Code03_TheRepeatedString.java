@@ -1,5 +1,7 @@
 package com.shijianwei.main.Leetcode;
 
+import org.junit.Test;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -32,7 +34,8 @@ class Code03_TheRepeatedString {
 //
 //    }
     public static void main(String[] args) {
-        System.out.println(new Code03_TheRepeatedString().lengthOfLongestSubstring("pwwke"));
+//        System.out.println(new Code03_TheRepeatedString().lengthOfLongestSubstring("pwwke"));
+        System.out.println(lengthOfLongestSubstring5(" "));
     }
 
 //     思想：滑动窗口
@@ -92,8 +95,7 @@ class Code03_TheRepeatedString {
         }
         for (int i = 0; i <s.length()-1 ; i++) {
             for (int j = i+1; j <s.length() ; j++) {
-
-                if (Code03_TheRepeatedString.allIsUnique(s,i,j)) {
+                if (allIsUnique(s,i,j)) {
                     ans =Math.max(ans, j-i+1);
                 }
             }
@@ -113,6 +115,41 @@ class Code03_TheRepeatedString {
         }
         return true ;
     }
+
+
+    /**
+     * 首先是使用滑动窗口来做，依次遍历，dp[i]的结果是当前的r-l+1
+     * r的位置就是最后一个的位置
+     * 然后用map保存每个数据的下标，如果map存在该数据，左指针直接移动到index+1
+     * @param s
+     * @return
+     */
+    public static int lengthOfLongestSubstring5(String s) {
+        HashMap<Character, Integer> map = new HashMap<>();
+        int[] dp = new int[s.length() + 1];
+        dp[0] = 0;
+        int l = 0;
+        int res = 0;
+        for (int r = 0; r < s.length(); r++) {
+            if (!map.containsKey(s.charAt(r))) {
+                dp[r+1] = dp[r]+1;
+                map.put(s.charAt(r), r);
+            }else {
+                Integer tmp = map.get(s.charAt(r));
+                for (int i = l; i < tmp; i++) {
+                    map.remove(s.charAt(i));
+                }
+                map.put(s.charAt(r), r);
+                l = tmp + 1;
+                dp[r + 1] = r - l + 1;
+            }
+            res = Math.max(res, dp[r + 1]);
+        }
+        return res;
+    }
+
+
+
 }
 /**
  * 128

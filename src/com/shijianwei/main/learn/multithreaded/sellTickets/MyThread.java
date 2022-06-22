@@ -1,4 +1,4 @@
-package com.shijianwei.main.learn.SellTickets;
+package com.shijianwei.main.learn.multithreaded.sellTickets;
 
 /**
  * @author SHI
@@ -16,14 +16,11 @@ public class MyThread implements Runnable {
 
     @Override
     public void run() {
-
-
         while (num > 0) {
             synchronized(this) {
                 System.out.println(Thread.currentThread().getName() + "：卖了第" + num + "张票！");
                 num--;
             }
         }
-
     }
 }

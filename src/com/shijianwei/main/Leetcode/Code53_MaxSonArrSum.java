@@ -27,4 +27,19 @@ public class Code53_MaxSonArrSum {
         }
         return res;
     }
+
+
+
+
+    public int maxSubArray1(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+        int res = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            nums[i] = nums[i - 1] + nums[i] > nums[i] ? nums[i - 1] + nums[i] : nums[i];
+            res = Math.max(nums[i], res);
+        }
+        return res;
+    }
 }

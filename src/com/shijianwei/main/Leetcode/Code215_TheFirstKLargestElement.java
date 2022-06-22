@@ -2,10 +2,7 @@ package com.shijianwei.main.Leetcode;
 
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author SHI
@@ -141,7 +138,7 @@ public class Code215_TheFirstKLargestElement {
         if (last <= 0 || left > last) {
             return;
         }
-        int max = right>last? left :  nums[left] > nums[right] ? left : right;
+        int max = right > last ? left : nums[left] > nums[right] ? left : right;
         if (nums[max] > nums[index]) {
             swap(nums, max, index);
         }
@@ -172,7 +169,7 @@ public class Code215_TheFirstKLargestElement {
         int[] ints = {3,2,1,5,6,4};
 //        swap(ints, 0, 1);
 //        System.out.println(ints[0]+" "+ints[1]);
-        System.out.println(findKthLargest2(ints, 1));
+        System.out.println(findKthLargest3(ints, 2));
 
     }
 
@@ -204,5 +201,65 @@ public class Code215_TheFirstKLargestElement {
         for (int num : nums) {
             System.out.print(num+" ");
         }
+    }
+
+
+    /**
+     * 建堆，然后依次弹出
+     * @param nums
+     * @param k
+     * @return
+     */
+    public int findKthLargest5(int[] nums, int k) {
+        PriorityQueue<Integer> queue = new PriorityQueue<>((o1,o2)->{
+            return o2 - o1;
+        });
+        for (int num : nums) {
+            queue.add(num);
+        }
+        for (int i = 0; i < k-1; i++) {
+            queue.poll();
+        }
+        return queue.poll();
+    }
+
+
+    public int findKthLargest6(int[] nums, int k) {
+        for (int i = nums.length - 1; i >= 0; i--) {
+            down(nums, i, nums.length - 1);
+        }
+        for (int i = 0; i < k; i++) {
+            swap(nums, 0, nums.length - i - 1);
+            down(nums, 0, nums.length - 2 - i);
+        }
+        return nums[nums.length - k];
+    }
+
+
+
+    void down(int[] nums, int index,int last) {
+        int l = getLeft(index);
+        int r = getRight(index);
+        if (l > last || l <= 0) {
+            return;
+        }
+        int maxIndex = l;
+        if (r <= nums.length - 1 && nums[l] < nums[r]) {
+            maxIndex = r;
+        }
+        if (nums[index] < nums[maxIndex]) {
+            swap(nums, index, maxIndex);
+        }
+        down(nums, maxIndex,last);
+    }
+
+    int getParent(int i) {
+        return (i - 1) / 2;
+    }
+    int getLeft(int i) {
+        return i*2+1;
+    }
+    int getRight(int i) {
+        return i*2+2;
     }
 }

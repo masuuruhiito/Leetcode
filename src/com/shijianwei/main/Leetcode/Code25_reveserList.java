@@ -50,7 +50,7 @@ public class Code25_reveserList {
             boolean flag = false;
             if (++cnt % k == 0) {
                 ListNode tmp = pre.next;
-                swapK(pre, cur.next);
+                reverse(pre, cur.next);
                 pre = tmp;
                 flag = true;
             }
@@ -107,13 +107,51 @@ public class Code25_reveserList {
 
 
 //        测试reverseKGroup()
-        ListNode res = reverseKGroup(head, 2);
+        ListNode res = reverseKGroup(head, 3);
         while (res != null) {
             System.out.print(res.val+" ");
             res = res.next;
         }
 
     }
+
+
+    public static void kGroupBy(ListNode pre, ListNode tail) {
+        ListNode p1 = pre.next;
+        ListNode p2 = pre.next.next;
+
+        while (p2 != tail && p2 != null) {
+            ListNode tmp = p2.next;
+            p2.next = p1;
+            p1 = p2;
+            p2 = tmp;
+        }
+
+        pre.next.next = tail;
+        pre.next = p1;
+    }
+
+
+    /**
+     * 这是后写的，不足是每次都改pre.next 以及pre.next.next
+     * @param pre
+     * @param tail
+     */
+    public static void reverse(ListNode pre , ListNode tail){
+        ListNode cur = pre.next ;
+        ListNode next = cur.next;
+        while(next!=tail && next != null ){
+            ListNode tmp = next.next ;
+            next.next = cur ;
+            cur= next ;
+            next = tmp;
+        }
+        pre.next.next = tail;
+        pre.next = cur ;
+    }
+
+
+
 
 
 }

@@ -1,4 +1,4 @@
-package com.shijianwei.main.learn.SellTickets;
+package com.shijianwei.main.learn.multithreaded.sellTickets;
 
 /**
  * @author SHI
@@ -7,7 +7,6 @@ package com.shijianwei.main.learn.SellTickets;
 public class Test {
     public static void main(String[] args) {
         MyThread myThread = new MyThread(1000) ;
-
 
         new Thread(myThread , "售票口1：").start();
         new Thread(myThread , "售票口2：").start();

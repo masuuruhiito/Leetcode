@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 import java.util.PriorityQueue;
 
 import static java.util.Arrays.*;
@@ -169,4 +170,57 @@ public class Code23_MergeKAscList {
 
 
     }
+
+
+    public static ListNode func(ListNode[] lists) {
+        PriorityQueue<ListNode> queue = new PriorityQueue<>(new Comparator<ListNode>() {
+            @Override
+            public int compare(ListNode o1, ListNode o2) {
+                return o1.val - o2.val;
+            }
+        });
+
+
+        for (ListNode list : lists) {
+            queue.add(list);
+        }
+
+        ListNode cur = new ListNode(-1);
+        ListNode res = cur;
+        while (!queue.isEmpty()) {
+            ListNode poll = queue.poll();
+            cur.next = poll ;
+            cur = cur.next;
+            queue.add(poll.next);
+        }
+
+
+        return res.next;
+    }
+
+
+
+
+    public static ListNode merge1(ListNode[] lists, int i, int j) {
+        if (i == j) {
+            return lists[i];
+        }
+        int mid = i + ((j - i) >> 1);
+        return doubleMerge1(merge1(lists, i, mid), merge1(lists, mid + 1, j));
+    }
+
+    public static ListNode doubleMerge1(ListNode list1, ListNode list2) {
+        if (list1 == null || list2 == null) {
+            return list1==null ? list2 : list1 ;
+        }
+        ListNode cur = new ListNode(-1);
+        ListNode res = cur;
+        while (list1 != null && list2 != null) {
+            cur.next = list1.val > list2.val ? list1 : list2;
+            cur = cur.next;
+        }
+        cur.next = list1 == null ? list2 : list1;
+        return res.next;
+    }
+
 }

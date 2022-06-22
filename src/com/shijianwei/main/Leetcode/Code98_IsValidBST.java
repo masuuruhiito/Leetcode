@@ -17,7 +17,7 @@ public class Code98_IsValidBST {
         inOrder(root);
 
         Iterator<Integer> iterable = res.iterator();
-        Long pre = Long.MIN_VALUE;
+        long pre = Long.MIN_VALUE;
         while (iterable.hasNext()) {
             int cur = iterable.next();
             if (cur <= pre) {

@@ -1,30 +1,30 @@
 package com.shijianwei.main;
 
+import java.util.*;
+
 /**
- * 想实现LRU，put和get都是o1
- *   可以使用多种数据结构叠加的方式
- *   各取优点
- *       puto1可以使用hashmap来实现，但是此时getLRU不是o1
- *       getlRUo1可以使用双向链表实现，记录每次的最近查询
+ * @author SHI
+ * @date 2022/4/12 13:33
  */
+public class Test {
+    public static void main(String[] args) {
+        Scanner s = new Scanner(System.in);
+        int n = s.nextInt();
 
-class Test {
+    }
 
 
-    public static boolean findNumberIn2DArray(int[][] matrix, int target) {
-        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
-            return false;
-        }
-        int i = 0, j = matrix[0].length - 1;
-        while (i < matrix.length && j > 0 && i >= 0 && j < matrix[0].length) {
-            if (matrix[i][j] == target) {
-                return true ;
-            } else if (matrix[i][j] > target) {
-                j--;
-            }else {
-                i++;
+    public static int func(int n, List<List<Integer>> list) {
+        List<HashSet> resList = new ArrayList<>();
+        HashSet<Integer> set = new HashSet<>();
+        set.addAll(list.get(0));
+        resList.add(set);
+        for (int i = 1; i < list.size(); i++) {
+            boolean flag = false;
+            for (Integer integer : list.get(i)) {
+
             }
         }
-        return false;
+        return resList.size();
     }
 }

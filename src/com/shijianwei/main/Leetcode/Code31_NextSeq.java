@@ -23,6 +23,7 @@ public class Code31_NextSeq {
         if (nums == null || nums.length == 0) {
             return ;
         }
+//        target的位置就代表了后面的数据都是递减的
         int target = nums.length - 2;
         while (target >= 0 && nums[target] >= nums[target + 1]) {
             target--;
@@ -32,9 +33,11 @@ public class Code31_NextSeq {
             while (index > target && nums[index] <= nums[target]) {
                 index--;
             }
+//            此时交换target与当前比target大的数据，最差情况为target+1
+//            保证了此时将数据最右边的最大值是大于target的，也就是现数组一定比之前大
             swap(nums,index,target);
         }
-
+//        既然有了target的后面是递减的,那么为了保证最小,就将target翻转即可达到排序效果
         reverse(nums,target+1);
     }
 

@@ -108,7 +108,7 @@ public class Code05_MaxLenPalindromeStr {
 
     @Test
     public void aaa(){
-        System.out.println(longestPalindrome1("aaaa"));
+        System.out.println(longestPalindrome2("aaaa"));
     }
 
 
@@ -131,7 +131,9 @@ public class Code05_MaxLenPalindromeStr {
 
         for (int r = 1; r < strLen; r++) {
             for (int l = 0; l < r; l++) {
+//                len <=3 的时候，并不需要判断子序列，只要当前的值相等就可以了 bab aa a
                 if (s.charAt(l) == s.charAt(r) && (r - l <= 2 || dp[l + 1][r - 1])) {
+//                    到这里就代表，当前的字符串是回文字符串了
                     dp[l][r] = true;
                     if (r - l + 1 > maxLen) {
                         maxLen = r - l + 1;
@@ -142,5 +144,37 @@ public class Code05_MaxLenPalindromeStr {
             }
         }
         return s.substring(maxStart, maxEnd + 1);
+    }
+
+
+
+    public static String longestPalindrome4(String s) {
+        int n = s.length();
+        String res = "";
+        for (int i = 0; i < n; i++) {
+            int l = i, r = i;
+            for (int j = i - 1; j >= 0; j--) {
+                if (s.charAt(j) == s.charAt(i)) {
+                    l--;
+                }else {
+                    break;
+                }
+            }
+            for (int j = i + 1; j < n; j++) {
+                if (s.charAt(j) == s.charAt(i)) {
+                    r++;
+                } else {
+                    break;
+                }
+            }
+
+            while (l >= 0 && r < n && s.charAt(l) == s.charAt(r)) {
+                l--;
+                r++;
+            }
+
+            res = res.length() > r - l - 1 ? res : s.substring(l + 1, r);
+        }
+        return res;
     }
 }

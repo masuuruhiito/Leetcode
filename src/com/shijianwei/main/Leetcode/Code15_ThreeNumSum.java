@@ -83,4 +83,29 @@ public class Code15_ThreeNumSum {
             return new String( );
         }
     }
+
+
+    public List<List<Integer>> threeSum1(int[] nums) {
+        HashSet<List<Integer>> set = new HashSet<>();
+        Arrays.sort(nums);
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] > 0) {
+                break;
+            }
+            int l = i+1, r = nums.length - 1;
+            while (l < r) {
+                if (nums[l] + nums[i] + nums[r] == 0) {
+                    List<Integer> tmp = new ArrayList<>(Arrays.asList(nums[i], nums[l++], nums[r--]));
+                    set.add(tmp);
+                    while (l<r && nums[l] == nums[l-1]) l++;
+                    while (l<r && nums[r] == nums[r+1]) r--;
+                } else if (nums[l] + nums[i] + nums[r] > 0) {
+                    r--;
+                } else {
+                    l++;
+                }
+            }
+        }
+        return new ArrayList<>(set);
+    }
 }

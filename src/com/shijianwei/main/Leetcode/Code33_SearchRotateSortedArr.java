@@ -63,4 +63,36 @@ public class Code33_SearchRotateSortedArr {
 
 
 
+//    些许浪费时间
+    public int search2(int[] nums, int target) {
+        if (nums == null || nums.length == 0) {
+            return -1 ;
+        }
+        int i = 0; //原数组头位置
+        for (i = 1; i < nums.length; i++) {
+            if (nums[i] < nums[i - 1]) {
+                break;
+            }
+        }
+        int len = nums.length - i; //翻转的长度
+        int l = 0, r = nums.length - 1;
+        while (l < r) {
+            int mid = l + ((r - l) >> 1) < 3 ?
+                    i + l + ((r - l) >> 1) :
+                    l + ((r - l) >> 1) - 3;
+            if (nums[mid] > target) {
+                r--;
+            } else if (nums[mid] < target) {
+                l++;
+            }else {
+                return l + ((r - l) >> 1);
+            }
+        }
+        return -1;
+    }
+
+
+
+
+
 }
