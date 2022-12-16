@@ -28,5 +28,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="lib (3)" level="project" />
+    <orderEntry type="library" name="KotlinJavaRuntime" level="project" />
   </component>
 </module>

@@ -1,7 +1,5 @@
 package com.shijianwei.main.jianzhiOffer.Code02_Link;
 
-import com.sun.deploy.cache.CacheEntry;
-
 /**
  * @author SHI
  * @date 2022/1/17 14:12
@@ -12,7 +10,8 @@ import com.sun.deploy.cache.CacheEntry;
  * 还有一个 random 指针指向链表中的任意节点或者 null。
  *
  */
-public class Code35 {
+public class
+Code35 {
 
     static class Node {
         int val;

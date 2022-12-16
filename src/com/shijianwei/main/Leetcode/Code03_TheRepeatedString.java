@@ -1,7 +1,5 @@
 package com.shijianwei.main.Leetcode;
 
-import org.junit.Test;
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -148,8 +146,53 @@ class Code03_TheRepeatedString {
         return res;
     }
 
+    public static int text_2022_08_11_true_5ms(String s) {
+        if (s == null || s.length() == 0) {
+            return 0;
+        }
+        HashMap<Character, Integer> map = new HashMap<>();
+        char[] chars = s.toCharArray();
+        int[] dp = new int[chars.length + 1];
+        dp[0] = 0;
+        int maxLen = 0;
+        int l = 0;
+        for (int r = 0; r < chars.length; r++) {
+            if (!map.containsKey(chars[r])) {
+                dp[r + 1] = dp[r] + 1;
+                map.put(chars[r], r);
+            }else {
+                Integer tmp = map.get(chars[r]);
+                for (int i = l; i < tmp; i++) {
+                    map.remove(s.charAt(i));
+                }
+                map.put(chars[r], r);
+                l = tmp + 1;
+                dp[r + 1] = r - l + 1;
+            }
+            maxLen = Math.max(dp[r + 1], maxLen);
+        }
+        return maxLen;
+    }
 
+    public static int text_2022_08_11_true_1ms(String s) {
+        if (s == null || s.length() == 0) {
+            return 0;
+        }
+        int[] chars = new int[128];
+        for (int i = 0; i < 128; i++) {
+            chars[i] = -1;
+        }
+        int start = 0;
+        int res = 0;
 
+        for (int i = 0; i < s.length(); i++) {
+            int index = s.charAt(i);
+            start = Math.max(start, chars[index] + 1);
+            res = Math.max(res, i - start + 1);
+            chars[i] = i;
+        }
+        return res;
+    }
 }
 /**
  * 128

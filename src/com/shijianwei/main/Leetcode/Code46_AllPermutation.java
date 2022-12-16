@@ -3,6 +3,7 @@ package com.shijianwei.main.Leetcode;
 import org.junit.Test;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author SHI
@@ -14,7 +15,26 @@ import java.util.*;
  * BFS实现全排列
  */
 public class Code46_AllPermutation {
+
     public static List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        dfs(nums, 0, res);
+        return res;
+    }
+
+    public static void dfs(int[] nums, int begin, List<List<Integer>> res) {
+        if (begin == nums.length) {
+            res.add(Arrays.stream(nums).boxed().collect(Collectors.toList()));
+            return;
+        }
+        for (int i = begin; i < nums.length; i++) {
+            swap(nums, i, begin);
+            dfs(nums, i + 1, res);
+            swap(nums, i, begin);
+        }
+    }
+
+    public static List<List<Integer>> permute2(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
         if (nums.length == 0) {
             return res;

@@ -64,4 +64,8 @@ public class Code04_TwoSortedArrMedian {
         }
         return nums;
     }
+
+    public static void aaaa(){
+        
+    }
 }
